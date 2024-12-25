@@ -1,17 +1,21 @@
 import React from 'react'
-// @ts-ignore
-function FeedbackItem({item}) {
-  // destructoring a array from what the useState function returns
+import Card from './Shared/Card'
 
+type FeedbackItemProps = {
+  item: {
+    rating: number,
+    text: string,
+  },
+}
 
-
+function FeedbackItem({item}: FeedbackItemProps) {
   return (
-    <div className='card'>
+    <Card>
       <div className='num-display'>{item.rating}</div>
       <div className='text-display'>
         {item.text}
       </div>
-    </div>
+    </Card>
   )
 }
 
