@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext, useState }from 'react'
+import FeedbackContext from '../context/FeedbackContext'
 
 type Item = {
   id: number;
@@ -6,13 +7,15 @@ type Item = {
   text: string;
 }
 
-type FeedbackStatsProps = {
-  feedback: Item[],
-}
 
-function FeedbackStats({feedback}: FeedbackStatsProps) {
+
+function FeedbackStats() {
+
+  //@ts-ignore
+  const { feedback } = useContext(FeedbackContext)
+
   // calculate average
-  let average = feedback.reduce((acc, cur) => {
+  let average = feedback.reduce((acc: any, cur: any) => {
     return acc + cur.rating
   }, 0) / feedback.length
 

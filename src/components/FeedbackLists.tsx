@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import FeedbackItem from './FeedbackItem'
+import FeedbackContext from '../context/FeedbackContext'
 
 type Item = {
   id: number;
@@ -8,12 +9,14 @@ type Item = {
 }
 
 type FeedbackListsProps = {
-  feedback: Item[],
   handleDelete: Function,
 }
 
 
-function FeedbackLists({feedback, handleDelete}: FeedbackListsProps) {
+function FeedbackLists({handleDelete}: FeedbackListsProps) {
+// @ts-ignore
+
+  const {feedback} = useContext(FeedbackContext)
 
   if(!feedback || feedback.length === 0) {
     return <p>No feedback yet</p>
@@ -21,7 +24,7 @@ function FeedbackLists({feedback, handleDelete}: FeedbackListsProps) {
 
   return (
     <div className='feedback-list'>
-      {feedback.map((item) => (
+      {feedback.map((item: any) => (
         <FeedbackItem
           key={item.id}
           item={item}
