@@ -8,12 +8,9 @@ type Item = {
   text: string;
 }
 
-type FeedbackListsProps = {
-  handleDelete: Function,
-}
 
 
-function FeedbackLists({handleDelete}: FeedbackListsProps) {
+function FeedbackLists() {
 // @ts-ignore
 
   const {feedback} = useContext(FeedbackContext)
@@ -28,7 +25,6 @@ function FeedbackLists({handleDelete}: FeedbackListsProps) {
         <FeedbackItem
           key={item.id}
           item={item}
-          handleDelete={handleDelete}
         />
       ))}
     </div>
