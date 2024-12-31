@@ -2,14 +2,6 @@ import React, { useContext } from 'react'
 import FeedbackItem from './FeedbackItem'
 import FeedbackContext from '../context/FeedbackContext'
 
-type Item = {
-  id: number;
-  rating: number;
-  text: string;
-}
-
-
-
 function FeedbackLists() {
 // @ts-ignore
 

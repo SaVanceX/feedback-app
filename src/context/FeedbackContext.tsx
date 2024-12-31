@@ -7,7 +7,7 @@ const FeedbackContext = createContext()
 
 export const FeedbackProvider = ({children}:any) => {
   const [isLoading, setIsLaoding] = useState(false)
-  const [feedback, setFeedback] = useState([])
+  const [feedback, setFeedback] = useState<any[]>([])
   // Item to edit
   const [feedbackEdit, setFeedbackEdit] = useState({
     item: {},

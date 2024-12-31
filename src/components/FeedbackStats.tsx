@@ -1,16 +1,7 @@
-import React, { useContext, useState }from 'react'
+import React, { useContext }from 'react'
 import FeedbackContext from '../context/FeedbackContext'
 
-type Item = {
-  id: number;
-  rating: number;
-  text: string;
-}
-
-
-
 function FeedbackStats() {
-
   //@ts-ignore
   const { feedback } = useContext(FeedbackContext)
 
