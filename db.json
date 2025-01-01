@@ -16,9 +16,9 @@
       "text": "This is feedback item 3 coming from the backend"
     },
     {
-      "id": "e61f",
-      "text": "this is a test to persist data on json server mock backend",
-      "rating": 5
+      "text": "New item feedback updated",
+      "rating": 5,
+      "id": "e86c"
     }
   ]
 }

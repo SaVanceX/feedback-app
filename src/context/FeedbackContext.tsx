@@ -1,6 +1,5 @@
 import React from "react";
 import { createContext, useState, useEffect } from "react";
-import { v4 as uuidv4} from 'uuid';
 
 // @ts-ignore
 const FeedbackContext = createContext()
@@ -29,9 +28,20 @@ export const FeedbackProvider = ({children}:any) => {
   }
 
   // Update feedback item
-  const updateFeedback = (id: any, updateItem: any) =>  {
-    setFeedback(feedback.map((item) => item.id === id ?
-    {...item, ...updateItem} : item))
+  const updateFeedback = async (id: any, updateItem: any) =>  {
+    const response = await fetch(`/feedback/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify(updateItem)
+    })
+
+    const data = await response.json()
+
+
+    setFeedback(feedback.map((item) => (item.id === id ? data : item)))
+
   }
 
 
@@ -51,8 +61,12 @@ export const FeedbackProvider = ({children}:any) => {
   }
 
   // delete feedback item
-  const deleteFeedback = (id: number) => {
+  const deleteFeedback = async (id: number) => {
     if(window.confirm('Are you sure you want to delete?')) {
+      await fetch(`/feedback/${id}`, {
+        method: 'DELETE'
+      })
+
       setFeedback(feedback.filter((item) => item.id !== id ))
     }
   }
