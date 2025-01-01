@@ -6,18 +6,16 @@ function FeedbackStats() {
   const { feedback } = useContext(FeedbackContext)
 
   // calculate average
-  let average = feedback.reduce((acc: any, cur: any) => {
-    return acc + cur.rating
-  }, 0) / feedback.length
+  const average =
+  feedback.length === 0
+    ? 0
+    : feedback.reduce((acc:any, { rating }: any) => +acc + +rating, 0) / feedback.length
 
-  //@ts-ignore
-  average = average.toFixed(1).replace(/[.,]0$/, '')
-
-  return (
-    <div className='feedback-stats'>
-      <h4>{feedback.length} Reviews</h4>
-      <h4>Average Rating: {isNaN(average) ? 0 : average}</h4>
-    </div>
+return (
+  <div className='feedback-stats'>
+    <h4>{feedback.length} Reviews</h4>
+    <h4>Average Rating: {average.toFixed(1).replace(/[.,]0$/, '')}</h4>
+  </div>
   )
 }
 

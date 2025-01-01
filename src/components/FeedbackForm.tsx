@@ -19,6 +19,7 @@ function FeedbackForm() {
       setText(feedbackEdit.item.text)
       setRating(feedbackEdit.item.rating)
     }
+
  }, [feedbackEdit])
 
   const handleTextChange = ({target: { value } }: any) => {
@@ -60,7 +61,7 @@ function FeedbackForm() {
     <Card>
       <form onSubmit={handleSubmit}>
         <h2>How would you rate your service with us?</h2>
-        <RatingSelect select={(rating: number) => setRating(rating)}/>
+        <RatingSelect select={setRating} selected={rating}/>
         <div className="input-group">
           <input onChange={handleTextChange} type="text" placeholder='write a review' value={text} />
           <Button type='submit' isDisabled={btnDisabled}>Send</Button>

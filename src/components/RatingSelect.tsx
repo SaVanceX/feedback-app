@@ -1,20 +1,13 @@
-import React, { useState, useContext, useEffect } from 'react'
-import FeedbackContext from '../context/FeedbackContext'
+import React from 'react'
 
 type SelectProps = {
   select: any;
+  selected: any;
 }
 
-function RatingSelect({select}: SelectProps) {
-  const [selected, setSelected] = useState(10)
-  const { feedbackEdit } = useContext<any>(FeedbackContext)
-
-  useEffect(() => {
-    setSelected(feedbackEdit.item.rating)
-  }, [feedbackEdit])
+function RatingSelect({select, selected}: SelectProps) {
 
   const handleChange = ({ currentTarget: { value } }:any) => {
-    setSelected(+value)
     select(+value )
   }
 
@@ -28,7 +21,7 @@ function RatingSelect({select}: SelectProps) {
             name='rating'
             value={i + 1}
             onChange={handleChange}
-            checked={selected === i + 1}
+            checked={+selected === i + 1}
           />
           <label htmlFor={`num${i + 1}`}>{i + 1}</label>
         </li>

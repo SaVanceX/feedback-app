@@ -19,6 +19,11 @@
       "text": "New item feedback updated",
       "rating": 5,
       "id": "e86c"
+    },
+    {
+      "id": "4cf6",
+      "text": "test test test rating",
+      "rating": 7
     }
   ]
 }
