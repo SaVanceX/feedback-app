@@ -22,30 +22,12 @@ export const FeedbackProvider = ({children}:any) => {
 
   })
 
-  // const [feedback, setFeedback] = useState<any[]>([])
   // Item to edit
   const [feedbackEdit, setFeedbackEdit] = useState({
     item: {},
     edit: false,
   })
 
-  useEffect(() => {
-    console.log(appData)
-    // always pull from local storage to have latest changes
-    // localStorage.setItem('appData', JSON.stringify(FeedbackData))
-    // getFeedbackData()
-  }, []) // Only update localStorage when 'appData' changes
-
-  // retrive feedback data
-  const getFeedbackData = () => {
-    const test  = localStorage.getItem('appData')
-    // @ts-ignore
-    console.log(JSON.parse(test))
-
-    // @ts-ignore
-    // setAppData(JSON.parse(test))
-    setIsLoading(false)
-  }
 
   // Update feedback item
   const updateFeedback = async (id: any, updateItem: any) =>  {

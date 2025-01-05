@@ -8,9 +8,10 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: #202142;
   color: #fff;
   line-height: 1.6;
+  background: rgb(126,0,255);
+background: linear-gradient(34deg, rgba(126,0,255,1) 3%, rgba(215,215,215,1) 12%, rgba(230,44,121,1) 24%, rgba(14,0,36,1) 40%, rgba(53,0,112,1) 55%, rgba(230,44,121,1) 74%, rgba(215,215,215,1) 86%, rgba(126,0,255,1) 90%, rgba(0,0,0,1) 96%);
 }
 
 ul {
@@ -33,12 +34,17 @@ header {
 }
 
 .card {
-  background-color: #fff;
-  color: #333;
-  border-radius: 15px;
+  color: white;
   padding: 40px 50px;
   margin: 20px 0;
   position: relative;
+  /* From https://css.glass */
+background: rgba(255, 255, 255, 0.07);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(18.3px);
+-webkit-backdrop-filter: blur(18.3px);
+border: 1px solid rgba(255, 255, 255, 0.39);
 }
 
 .card.reverse {
@@ -62,7 +68,7 @@ header {
 .rating li,
 .num-display {
   position: relative;
-  background: #f4f4f4;
+  background: #919191;
   width: 50px;
   height: 50px;
   padding: 10px;
@@ -87,8 +93,11 @@ header {
 
 .rating li:hover,
 .num-display {
-  background: #ff6a95;
+  /* background: #ff6a95; */
   color: #fff;
+  border: 1px solid white;
+  background: rgb(126,0,255);
+background: linear-gradient(34deg, rgba(126,0,255,1) 3%, rgba(215,215,215,1) 12%, rgba(230,44,121,1) 24%, rgba(14,0,36,1) 40%, rgba(53,0,112,1) 55%, rgba(230,44,121,1) 74%, rgba(215,215,215,1) 86%, rgba(126,0,255,1) 90%, rgba(0,0,0,1) 96%);
 }
 
 [type='radio'] {
@@ -96,8 +105,11 @@ header {
 }
 
 [type='radio']:checked ~ label {
-  background: #ff6a95;
+  /* background: #ff6a95; */
   color: #fff;
+  border: 1px solid white;
+  background: rgb(126,0,255);
+background: linear-gradient(34deg, rgba(126,0,255,1) 3%, rgba(215,215,215,1) 12%, rgba(230,44,121,1) 24%, rgba(14,0,36,1) 40%, rgba(53,0,112,1) 55%, rgba(230,44,121,1) 74%, rgba(215,215,215,1) 86%, rgba(126,0,255,1) 90%, rgba(0,0,0,1) 96%);
 }
 
 .input-group {
@@ -112,6 +124,8 @@ input {
   flex-grow: 2;
   border: none;
   font-size: 16px;
+  background-color: transparent;
+  color: white;
 }
 
 input:focus {
@@ -182,7 +196,7 @@ input:focus {
 .message {
   padding-top: 10px;
   text-align: center;
-  color: rebeccapurple;
+  color: rgb(236, 236, 236);
 }
 
 /* FIX: Remove position: absolute to keep about icon at the bottom of the
