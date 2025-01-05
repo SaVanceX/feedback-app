@@ -1,12 +1,28 @@
 import React from "react";
 import { createContext, useState, useEffect } from "react";
+import FeedbackData from "../data/FeedbackData";
+import { v4 as uuidv4 } from 'uuid';
 
 // @ts-ignore
 const FeedbackContext = createContext()
 
 export const FeedbackProvider = ({children}:any) => {
-  const [isLoading, setIsLaoding] = useState(true)
-  const [feedback, setFeedback] = useState<any[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  // web app storage
+  const [appData, setAppData] = useState(() => {
+    const storedValue = localStorage.getItem('appData');
+    if(storedValue) {
+      setIsLoading(false)
+      return JSON.parse(storedValue);
+    } else {
+      setIsLoading(false)
+      localStorage.setItem('appData', JSON.stringify(FeedbackData))
+    }
+
+  })
+
+  // const [feedback, setFeedback] = useState<any[]>([])
   // Item to edit
   const [feedbackEdit, setFeedbackEdit] = useState({
     item: {},
@@ -14,64 +30,68 @@ export const FeedbackProvider = ({children}:any) => {
   })
 
   useEffect(() => {
-    fetchFeeback()
-  }, [])
+    console.log(appData)
+    // always pull from local storage to have latest changes
+    // localStorage.setItem('appData', JSON.stringify(FeedbackData))
+    // getFeedbackData()
+  }, []) // Only update localStorage when 'appData' changes
 
-  // Fetch feedback data
-  const fetchFeeback = async () => {
-    const response = await fetch(`/feedback?_sort=id&_order=desc`)
-    const data = await response.json()
+  // retrive feedback data
+  const getFeedbackData = () => {
+    const test  = localStorage.getItem('appData')
+    // @ts-ignore
+    console.log(JSON.parse(test))
 
-    setFeedback(data)
-    setIsLaoding(false)
+    // @ts-ignore
+    // setAppData(JSON.parse(test))
+    setIsLoading(false)
   }
 
   // Update feedback item
   const updateFeedback = async (id: any, updateItem: any) =>  {
-    const response = await fetch(`/feedback/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json'
-      },
-      body: JSON.stringify(updateItem)
+
+    const mappedArray = appData.map((item: any) => {
+      if (item.id === id) {
+        return {...item, rating: updateItem.rating, text: updateItem.text}
+      } else {
+        return item
+      }
     })
-
-    const data = await response.json()
-
-
-    setFeedback(feedback.map((item) => (item.id === id ? data : item)))
-
+    localStorage.setItem('appData', JSON.stringify(mappedArray))
+    setAppData(mappedArray)
   }
 
 
   // add feddback item
-  const addFeedback = async (newFeedback: any) => {
-      const response = await fetch('/feedback', {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json'
-        },
-        body: JSON.stringify(newFeedback)
-      })
-      const data = await response.json()
+  const addFeedback =  (newFeedback: any) => {
+    newFeedback.id = uuidv4()
+    console.log([newFeedback, ...appData])
 
-      setFeedback([data,...feedback])
+    localStorage.setItem('appData', JSON.stringify([newFeedback, ...appData]))
 
+    setAppData([newFeedback, ...appData])
   }
 
   // delete feedback item
-  const deleteFeedback = async (id: number) => {
+  const deleteFeedback =  (id: number) => {
     if(window.confirm('Are you sure you want to delete?')) {
-      await fetch(`/feedback/${id}`, {
-        method: 'DELETE'
-      })
 
-      setFeedback(feedback.filter((item) => item.id !== id ))
+      console.log(appData)
+      const newArray = appData.filter((item: any)  => item.id !== id )
+
+      console.log(newArray)
+
+
+      localStorage.setItem('appData', JSON.stringify(newArray))
+      setAppData(newArray)
+
+
     }
   }
 
   // set item to be updated
   const editFeedback = (item: any) => {
+
     setFeedbackEdit({
       item,
       edit: true
@@ -81,7 +101,7 @@ export const FeedbackProvider = ({children}:any) => {
   return (
     <FeedbackContext.Provider
       value={{
-        feedback,
+        appData,
         feedbackEdit,
         isLoading,
         deleteFeedback,
